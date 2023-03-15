@@ -9,20 +9,40 @@ main {
   align-items: center;
 }
 
+main h1 {
+  text-align: center;
+}
+
+
 .form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 
   width: 30vw;
-  height: 50vh;
+  height: fit-content;
   border: 1px solid black;
 }
 
-/* #book-form {
-  width: 100%;
-  background-color: red;
-} */
+#book-form {
+  width: 90%;
+}
+
+#book-form button {
+  padding: 15px;
+  background-color: royalblue;
+  color: white;
+  font-weight: bold;
+  border-radius: 7px;
+  border: none;
+  transition: 0.2s ease-in-out ;
+}
+
+#book-form button:hover {
+  cursor: pointer;
+  background-color: rgb(39, 75, 184);
+}
+
 
 .form-element {
   display: flex;
@@ -30,6 +50,13 @@ main {
   margin-bottom: 10px;
 }
 
+input[type='text'], input[type='number'] {
+  height: 35px;
+  padding-inline: 10px;
+  font-size: 1.15em;
+  border-radius: 5px;
+  border: 1px solid black;
+}
 
 .lists-container {
   display: flex;
@@ -38,18 +65,33 @@ main {
 
 .unfinished-list-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   width: 30vw;
-  height: 50vh;
+  min-height: 50vh;
+  padding-block: 15px;
   border: 1px solid black;
 }
 
 .finished-list-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   width: 30vw;
-  height: 50vh;
+  min-height: 50vh;
+  padding-block: 15px;
+  border: 1px solid black;
+}
+
+.list-item-container {
+  width: 90%;
+  height: fit-content;
+}
+
+.list-item {
+  height: fit-content;
+  margin-block: 10px;
   border: 1px solid black;
 }

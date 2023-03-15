@@ -15,17 +15,17 @@
         <form action="" id="book-form">
           <div class="form-element">
             <label for="title">Judul</label>
-            <input type="text" name="title" id="title" required/>
+            <input type="text" name="title" id="title" required />
           </div>
 
           <div class="form-element">
             <label for="writer">Penulis</label>
-            <input type="text" name="title" id="writer" required/>
+            <input type="text" name="title" id="writer" required />
           </div>
 
           <div class="form-element">
             <label for="year">Tahun</label>
-            <input type="number" name="year" id="year" required/>
+            <input type="number" name="year" id="year" required />
           </div>
 
           <div class="form-element">
@@ -35,16 +35,14 @@
                 type="radio"
                 name="reading-status"
                 id="not-finished"
-                value="false"
                 required
               />
-              <label for="not-finished">Sedang Dibaca</label>
+              <label for="not-finished">Belum Selesai Dibaca</label>
 
               <input
                 type="radio"
                 name="reading-status"
                 id="finished"
-                value="true"
                 required
               />
               <label for="finished">Selesai Dibaca</label>
@@ -60,10 +58,12 @@
       <div class="lists-container">
         <div class="unfinished-list-container">
           <h1>Belum Selesai Dibaca</h1>
+          <div class="list-item-container"></div>
         </div>
 
         <div class="finished-list-container">
           <h1>Selesai Dibaca</h1>
+          <div class="list-item-container"></div>
         </div>
       </div>
     </main>
