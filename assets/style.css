@@ -5,7 +5,7 @@
 main {
   display: flex;
   gap: 20px;
-  flex-direction: column;  
+  flex-direction: column;
   align-items: center;
 }
 
@@ -18,6 +18,18 @@ main {
   height: 50vh;
   border: 1px solid black;
 }
+
+/* #book-form {
+  width: 100%;
+  background-color: red;
+} */
+
+.form-element {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
 
 .lists-container {
   display: flex;
@@ -41,5 +53,3 @@ main {
   height: 50vh;
   border: 1px solid black;
 }
-
-

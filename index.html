@@ -1,34 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bookshelf App</title>
-  <link rel="stylesheet" href="./assets/style.css">
-</head>
-<body>
-  <main>
-    <div class="form-container">
-      <h1>Masukkan Data Buku</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bookshelf App</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="form-container">
+        <h1>Masukkan Data Buku</h1>
 
-      <form action="" id="book-form">
-        <label for="title">Judul</label>
-        <input type="text" name="title" id="title">
-      </form>
-    </div>
+        <form action="" id="book-form">
+          <div class="form-element">
+            <label for="title">Judul</label>
+            <input type="text" name="title" id="title" />
+          </div>
 
-    <div class="lists-container">
-      <div class="incomplete-list-container">
-        <h1>Belum Selesai Dibaca</h1>
+          <div class="form-element">
+            <label for="writer">Penulis</label>
+            <input type="text" name="title" id="title" />
+          </div>
+
+          <div class="form-element">
+            <label for="year">Tahun</label>
+            <input type="number" name="year" id="year" />
+          </div>
+
+          <div class="form-element">
+            <label>Status</label>
+            <div class="radio-group">
+              <input
+                type="radio"
+                name="reading-status"
+                id="not-finished"
+                value="false"
+              />
+              <label for="not-finished">Sedang Dibaca</label>
+
+              <input
+                type="radio"
+                name="reading-status"
+                id="finished"
+                value="true"
+              />
+              <label for="finished">Selesai Dibaca</label>
+            </div>
+          </div>
+
+          <div class="form-element">
+            <button type="submit">Simpan Data Buku</button>
+          </div>
+        </form>
       </div>
-  
-      <div class="complete-list-container">
-        <h1>Selesai Dibaca</h1>
+
+      <div class="lists-container">
+        <div class="incomplete-list-container">
+          <h1>Belum Selesai Dibaca</h1>
+        </div>
+
+        <div class="complete-list-container">
+          <h1>Selesai Dibaca</h1>
+        </div>
       </div>
-    </div>
-  </main>
-  
-  <script src="./assets/script.js"></script>
-</body>
+    </main>
+
+    <script src="./assets/script.js"></script>
+  </body>
 </html>
