@@ -15,17 +15,17 @@
         <form action="" id="book-form">
           <div class="form-element">
             <label for="title">Judul</label>
-            <input type="text" name="title" id="title" />
+            <input type="text" name="title" id="title" required/>
           </div>
 
           <div class="form-element">
             <label for="writer">Penulis</label>
-            <input type="text" name="title" id="title" />
+            <input type="text" name="title" id="writer" required/>
           </div>
 
           <div class="form-element">
             <label for="year">Tahun</label>
-            <input type="number" name="year" id="year" />
+            <input type="number" name="year" id="year" required/>
           </div>
 
           <div class="form-element">
@@ -36,6 +36,7 @@
                 name="reading-status"
                 id="not-finished"
                 value="false"
+                required
               />
               <label for="not-finished">Sedang Dibaca</label>
 
@@ -44,6 +45,7 @@
                 name="reading-status"
                 id="finished"
                 value="true"
+                required
               />
               <label for="finished">Selesai Dibaca</label>
             </div>
