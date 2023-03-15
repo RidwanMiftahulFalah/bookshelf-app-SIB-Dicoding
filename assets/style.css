@@ -36,7 +36,7 @@ main {
   gap: 20px;
 }
 
-.incomplete-list-container {
+.unfinished-list-container {
   display: flex;
   justify-content: center;
 
@@ -45,7 +45,7 @@ main {
   border: 1px solid black;
 }
 
-.complete-list-container {
+.finished-list-container {
   display: flex;
   justify-content: center;
 
