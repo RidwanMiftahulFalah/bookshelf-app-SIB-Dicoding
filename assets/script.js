@@ -72,6 +72,38 @@ function clearCurrentBookList() {
   currentlyReadingList.innerHTML = '';
 }
 
+function createBookList(bookData) {
+  const listItem = document.createElement('div');
+  listItem.setAttribute('id', bookData.id);
+  listItem.setAttribute('class', 'list-item');
+
+  const title = document.createElement('h3');
+  title.innerText = bookData.title;
+
+  const writer = document.createElement('p');
+  writer.innerText = `Penulis: ${bookData.writer}`;
+
+  const year = document.createElement('p');
+  year.innerText = `Tahun: ${bookData.year}`;
+
+  const isFinished = document.createElement('p');
+  isFinished.innerText = bookData.isComplete;
+
+  const changeReadingStatusBtn = document.createElement('button');
+  changeReadingStatusBtn.setAttribute('id', 'change-status');
+  changeReadingStatusBtn.innerText = bookData.isComplete
+    ? 'Sedang Dibaca'
+    : 'Selesaikan';
+
+  changeReadingStatusBtn.addEventListener('click', () => {
+    changeReadingStatus(bookData.id);
+  });
+
+  listItem.append(title, writer, year, isFinished, changeReadingStatusBtn);
+
+  return listItem;
+}
+
 function renderBookList() {
   const booksData = JSON.parse(localStorage.getItem(localBooksDataKey));
 
@@ -82,38 +114,12 @@ function renderBookList() {
   clearCurrentBookList();
 
   for (const bookData of booksData) {
-    const listItem = document.createElement('div');
-    listItem.setAttribute('id', bookData.id);
-    listItem.setAttribute('class', 'list-item');
-
-    const title = document.createElement('h3');
-    title.innerText = bookData.title;
-
-    const writer = document.createElement('p');
-    writer.innerText = `Penulis: ${bookData.writer}`;
-
-    const year = document.createElement('p');
-    year.innerText = `Tahun: ${bookData.year}`;
-
-    const isFinished = document.createElement('p');
-    isFinished.innerText = bookData.isComplete;
-
-    const changeReadingStatusBtn = document.createElement('button');
-    changeReadingStatusBtn.setAttribute('id', 'change-status');
-    changeReadingStatusBtn.innerText = bookData.isComplete
-      ? 'Sedang Dibaca'
-      : 'Selesaikan';
-
-    changeReadingStatusBtn.addEventListener('click', () => {
-      changeReadingStatus(bookData.id);
-    });
-
-    listItem.append(title, writer, year, isFinished, changeReadingStatusBtn);
+    const newBookListItem = createBookList(bookData);
 
     if (bookData.isComplete) {
-      finishedReadingList.append(listItem);
+      finishedReadingList.append(newBookListItem);
     } else {
-      currentlyReadingList.append(listItem);
+      currentlyReadingList.append(newBookListItem);
     }
   }
 }
