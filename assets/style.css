@@ -53,7 +53,7 @@ main h1 {
 input[type='text'], input[type='number'] {
   height: 35px;
   padding-inline: 10px;
-  font-size: 1.15em;
+  font-size: 1.05em;
   border-radius: 5px;
   border: 1px solid black;
 }

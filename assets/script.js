@@ -40,8 +40,6 @@ function getBookData() {
     isComplete: inputIsFinishedReading,
   };
 
-  // console.log(inputIsFinished);
-  console.log(newBookData);
   return newBookData;
 }
 
@@ -54,20 +52,34 @@ function storeBookData(data) {
 
   booksData.unshift(data);
   localStorage.setItem(localBooksDataKey, JSON.stringify(booksData));
-  renderBookDataList();
+  renderBookList();
   clearForm();
-  console.log(localStorage.getItem(localBooksDataKey));
 }
 
-function renderBookDataList() {
+function changeReadingStatus(id) {
+  const booksData = JSON.parse(localStorage.getItem(localBooksDataKey));
+  const selectedBookData = (booksData.findIndex((data) => data.id === id));
+  const currentIsFinishedReading = booksData[selectedBookData].isComplete;
+
+  booksData[selectedBookData].isComplete = currentIsFinishedReading ? false : true;
+  localStorage.setItem(localBooksDataKey, JSON.stringify(booksData));
+
+  renderBookList();
+}
+
+function clearCurrentBookList() {
+  finishedReadingList.innerHTML = '';
+  currentlyReadingList.innerHTML = '';
+}
+
+function renderBookList() {
   const booksData = JSON.parse(localStorage.getItem(localBooksDataKey));
 
   if (!booksData) {
     return;
   }
 
-  finishedReadingList.innerHTML = '';
-  currentlyReadingList.innerHTML = '';
+  clearCurrentBookList();
 
   for (const bookData of booksData) {
     const listItem = document.createElement('div');
@@ -86,7 +98,17 @@ function renderBookDataList() {
     const isFinished = document.createElement('p');
     isFinished.innerText = bookData.isComplete;
 
-    listItem.append(title, writer, year, isFinished);
+    const changeReadingStatusBtn = document.createElement('button');
+    changeReadingStatusBtn.setAttribute('id', 'change-status');
+    changeReadingStatusBtn.innerText = bookData.isComplete
+      ? 'Sedang Dibaca'
+      : 'Selesaikan';
+
+    changeReadingStatusBtn.addEventListener('click', () => {
+      changeReadingStatus(bookData.id);
+    });
+
+    listItem.append(title, writer, year, isFinished, changeReadingStatusBtn);
 
     if (bookData.isComplete) {
       finishedReadingList.append(listItem);
@@ -102,7 +124,7 @@ window.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  renderBookDataList();
+  renderBookList();
 
   bookForm.addEventListener('submit', (e) => {
     e.preventDefault();
