@@ -126,6 +126,21 @@ input[type='number'] {
   background-color: rgb(32, 65, 161);
 }
 
+#edit-btn {
+  padding: 15px;
+  background-color: darkorange;
+  color: white;
+  font-weight: bold;
+  border-radius: 7px;
+  border: none;
+  transition: 0.2s ease-in-out;
+}
+
+#edit-btn:hover {
+  cursor: pointer;
+  background-color: rgb(204, 113, 3);
+}
+
 #delete-btn {
   padding: 15px;
   background-color: rgb(214, 1, 1);
@@ -138,5 +153,5 @@ input[type='number'] {
 
 #delete-btn:hover {
   cursor: pointer;
-  background-color: rgb(194, 3, 3);
+  background-color: rgb(180, 4, 4);
 }

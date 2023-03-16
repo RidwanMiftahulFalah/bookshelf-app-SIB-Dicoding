@@ -10,7 +10,7 @@
   <body>
     <main>
       <div class="form-container">
-        <h2>Masukkan Data Buku</h2>
+        <h2><span id="form-title-state">Tambah</span> Data Buku</h2>
 
         <form action="" id="book-form">
           <div class="form-element">
@@ -35,6 +35,7 @@
                 type="radio"
                 name="reading-status"
                 id="not-finished"
+                value="false"
                 required
               />
               <label for="not-finished">Belum Selesai Dibaca</label>
@@ -43,11 +44,19 @@
                 type="radio"
                 name="reading-status"
                 id="finished"
+                value="true"
                 required
               />
               <label for="finished">Selesai Dibaca</label>
             </div>
           </div>
+
+          <input
+            type="hidden"
+            name="existing-data-id"
+            id="existing-data-id"
+            value=""
+          />
 
           <div class="form-element">
             <button type="submit">Simpan Data Buku</button>
@@ -59,7 +68,12 @@
         <h2>Cari Data Buku</h2>
 
         <form action="" id="search-form">
-          <input type="text" name="search" id="search-box" placeholder="Cari judul / penulis buku">
+          <input
+            type="text"
+            name="search"
+            id="search-box"
+            placeholder="Cari judul / penulis buku"
+          />
 
           <button type="submit">Cari Data</button>
         </form>
