@@ -1,5 +1,6 @@
 const localBooksDataKey = 'BooksData';
 const bookForm = document.getElementById('book-form');
+const searchForm = document.getElementById('search-form');
 const finishedReadingList = document.querySelector(
   '.finished-list-container > .list-item-container'
 );
@@ -19,6 +20,10 @@ function clearForm() {
 function clearCurrentBookList() {
   finishedReadingList.innerHTML = '';
   currentlyReadingList.innerHTML = '';
+}
+
+function getLocalBookData() {
+  return JSON.parse(localStorage.getItem(localBooksDataKey));
 }
 
 function getFormData() {
@@ -48,31 +53,46 @@ function getFormData() {
   return newBookData;
 }
 
+function searchBookData() {
+  const keyword = (document.getElementById('search-box').value).toLowerCase();
+  const booksData = getLocalBookData();
+  const searchResult = booksData.filter((data) =>
+    (data.title).toLowerCase().includes(keyword) || (data.writer).toLowerCase().includes(keyword)
+  );
+
+  if (searchResult.length === 0) {
+    return alert('Data tidak ditemukan...');
+    
+  }
+
+  renderBookList(searchResult)
+}
+
 function storeBookData(data) {
   let booksData = [];
 
   if (localStorage.getItem(localBooksDataKey) !== null) {
-    booksData = JSON.parse(localStorage.getItem(localBooksDataKey));
+    booksData = getLocalBookData();
   }
 
   booksData.unshift(data);
   localStorage.setItem(localBooksDataKey, JSON.stringify(booksData));
-  renderBookList();
+  renderBookList(getLocalBookData());
   clearForm();
 }
 
 function deleteBookData(id) {
-  const booksData = JSON.parse(localStorage.getItem(localBooksDataKey));
+  const booksData = getLocalBookData();
   const selectedBookDataIndex = booksData.findIndex((data) => data.id === id);
 
   booksData.splice(selectedBookDataIndex, 1);
   localStorage.setItem(localBooksDataKey, JSON.stringify(booksData));
 
-  renderBookList();
+  renderBookList(getLocalBookData());
 }
 
 function changeReadingStatus(id) {
-  const booksData = JSON.parse(localStorage.getItem(localBooksDataKey));
+  const booksData = getLocalBookData();
   const selectedBookDataIndex = booksData.findIndex((data) => data.id === id);
   const currentIsFinishedReading = booksData[selectedBookDataIndex].isComplete;
 
@@ -81,7 +101,7 @@ function changeReadingStatus(id) {
     : true;
   localStorage.setItem(localBooksDataKey, JSON.stringify(booksData));
 
-  renderBookList();
+  renderBookList(getLocalBookData());
 }
 
 function createBookList(bookData) {
@@ -131,8 +151,7 @@ function createBookList(bookData) {
   return listItem;
 }
 
-function renderBookList() {
-  const booksData = JSON.parse(localStorage.getItem(localBooksDataKey));
+function renderBookList(booksData) {
 
   if (!booksData) {
     return;
@@ -157,11 +176,17 @@ window.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  renderBookList();
+  renderBookList(getLocalBookData());
 
   bookForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     storeBookData(getFormData());
   });
+
+  searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    searchBookData();
+  })
 });

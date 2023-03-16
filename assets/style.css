@@ -23,7 +23,18 @@ main h1 {
   border: 1px solid black;
 }
 
-#book-form {
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 30vw;
+  height: fit-content;
+  padding-bottom: 10px;
+  border: 1px solid black;
+}
+
+#book-form, #search-form {
   width: 90%;
 }
 
@@ -40,6 +51,11 @@ main h1 {
 #book-form button:hover {
   cursor: pointer;
   background-color: rgb(32, 65, 161);
+}
+
+#search-form {
+  display: flex;
+  gap: 10px;
 }
 
 .form-element {
