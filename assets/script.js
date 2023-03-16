@@ -1,3 +1,4 @@
+const localBooksDataKey = 'BooksData';
 const bookForm = document.getElementById('book-form');
 const finishedReadingList = document.querySelector(
   '.finished-list-container > .list-item-container'
@@ -5,7 +6,6 @@ const finishedReadingList = document.querySelector(
 const currentlyReadingList = document.querySelector(
   '.unfinished-list-container > .list-item-container'
 );
-const localBooksDataKey = 'BooksData';
 
 function clearForm() {
   document.getElementById('title').value = '';
@@ -16,7 +16,12 @@ function clearForm() {
     .forEach((option) => (option.checked = false));
 }
 
-function getBookData() {
+function clearCurrentBookList() {
+  finishedReadingList.innerHTML = '';
+  currentlyReadingList.innerHTML = '';
+}
+
+function getFormData() {
   const inputTitle = document.getElementById('title').value;
   const inputWriter = document.getElementById('writer').value;
   const inputYear = Number(document.getElementById('year').value);
@@ -56,20 +61,27 @@ function storeBookData(data) {
   clearForm();
 }
 
-function changeReadingStatus(id) {
+function deleteBookData(id) {
   const booksData = JSON.parse(localStorage.getItem(localBooksDataKey));
-  const selectedBookData = (booksData.findIndex((data) => data.id === id));
-  const currentIsFinishedReading = booksData[selectedBookData].isComplete;
+  const selectedBookDataIndex = booksData.findIndex((data) => data.id === id);
 
-  booksData[selectedBookData].isComplete = currentIsFinishedReading ? false : true;
+  booksData.splice(selectedBookDataIndex, 1);
   localStorage.setItem(localBooksDataKey, JSON.stringify(booksData));
 
   renderBookList();
 }
 
-function clearCurrentBookList() {
-  finishedReadingList.innerHTML = '';
-  currentlyReadingList.innerHTML = '';
+function changeReadingStatus(id) {
+  const booksData = JSON.parse(localStorage.getItem(localBooksDataKey));
+  const selectedBookDataIndex = booksData.findIndex((data) => data.id === id);
+  const currentIsFinishedReading = booksData[selectedBookDataIndex].isComplete;
+
+  booksData[selectedBookDataIndex].isComplete = currentIsFinishedReading
+    ? false
+    : true;
+  localStorage.setItem(localBooksDataKey, JSON.stringify(booksData));
+
+  renderBookList();
 }
 
 function createBookList(bookData) {
@@ -90,16 +102,31 @@ function createBookList(bookData) {
   isFinished.innerText = bookData.isComplete;
 
   const changeReadingStatusBtn = document.createElement('button');
-  changeReadingStatusBtn.setAttribute('id', 'change-status');
+  changeReadingStatusBtn.setAttribute('id', 'change-status-btn');
   changeReadingStatusBtn.innerText = bookData.isComplete
     ? 'Sedang Dibaca'
     : 'Selesaikan';
+
+  const deleteBtn = document.createElement('button');
+  deleteBtn.setAttribute('id', 'delete-btn');
+  deleteBtn.innerText = 'Hapus Data';
 
   changeReadingStatusBtn.addEventListener('click', () => {
     changeReadingStatus(bookData.id);
   });
 
-  listItem.append(title, writer, year, isFinished, changeReadingStatusBtn);
+  deleteBtn.addEventListener('click', () => {
+    deleteBookData(bookData.id);
+  });
+
+  listItem.append(
+    title,
+    writer,
+    year,
+    isFinished,
+    changeReadingStatusBtn,
+    deleteBtn
+  );
 
   return listItem;
 }
@@ -135,6 +162,6 @@ window.addEventListener('DOMContentLoaded', () => {
   bookForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    storeBookData(getBookData());
+    storeBookData(getFormData());
   });
 });
