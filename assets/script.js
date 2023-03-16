@@ -1,11 +1,10 @@
 window.addEventListener('DOMContentLoaded', () => {
   if (typeof Storage === 'undefined') {
-    alert('Maaf, browser yang anda tidak mendukung Web Storage.');
+    alert('Maaf, aplikasi tidak dapat berfungsi karena browser yang anda gunakan tidak mendukung Web Storage.');
     return;
   }
 
   const localBooksDataKey = 'BooksData';
-  let formState = 'create';
   const bookForm = document.getElementById('book-form');
   const searchForm = document.getElementById('search-form');
   let formTitleState = document.getElementById('form-title-state');
