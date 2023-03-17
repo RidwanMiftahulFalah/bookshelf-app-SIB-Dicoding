@@ -1,10 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins&display=swap');
+
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Poppins';
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  padding-bottom: 30px;
+  background-color: rgb(245, 233, 210);
+}
+
+header {
+  width: 70vw;
+  padding-block: 1.2em;
+  margin-inline: auto;
+  margin-bottom: 30px;
+  text-align: center;
+  background-color: midnightblue;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+header > h1 {
+  font-family: 'Lobster';
+  font-weight: 300;
+  font-size: 2.3em;
+  color: rgb(218, 159, 12);
 }
 
 main {
   display: flex;
-  gap: 20px;
+  gap: 25px;
   flex-direction: column;
   align-items: center;
 }
@@ -13,33 +45,41 @@ main h1 {
   text-align: center;
 }
 
-.form-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  width: 30vw;
-  height: fit-content;
-  border: 1px solid black;
+h2 {
+  color: midnightblue;
 }
 
+.form-container,
 .search-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
 
-  width: 30vw;
-  height: fit-content;
-  padding-bottom: 10px;
-  border: 1px solid black;
+  padding-block: 20px;
+  width: 40vw;
+  padding: 30px;
+  background-color: rgb(212, 216, 223);
+  border-radius: 25px;
+  box-shadow: 10px 17px 15px -3px rgba(0, 0, 0, 0.1);
+  border: 1px solid midnightblue;
 }
 
-#book-form, #search-form {
+#book-form,
+#search-form {
   width: 90%;
 }
 
-#book-form button {
-  padding: 15px;
+#book-form .btn-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+}
+
+#book-form #submit-btn {
+  width: 50%;
+  margin-top: 15px;
   background-color: rgb(39, 75, 184);
   color: white;
   font-weight: bold;
@@ -48,14 +88,50 @@ main h1 {
   transition: 0.2s ease-in-out;
 }
 
-#book-form button:hover {
+#book-form #submit-btn:hover {
   cursor: pointer;
   background-color: rgb(32, 65, 161);
 }
 
+#book-form #cancel-btn {
+  width: 50%;
+  margin-top: 15px;
+  padding: 15px;
+  background-color: rgb(214, 1, 1);
+  color: white;
+  font-weight: bold;
+  border-radius: 7px;
+  border: none;
+  transition: 0.2s ease-in-out;
+}
+
+#book-form #cancel-btn:hover {
+  cursor: pointer;
+  background-color: rgb(180, 4, 4);
+}
+
 #search-form {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
+}
+
+#search-form > input[type='text'] {
+  width: 70%;
+}
+
+#search-form > button {
+  padding-inline: 30px;
+  background-color: rgb(39, 75, 184);
+  color: white;
+  font-weight: bold;
+  border-radius: 7px;
+  border: none;
+  transition: 0.2s ease-in-out;
+}
+
+#search-form > button:hover {
+  cursor: pointer;
+  background-color: rgb(32, 65, 161);
 }
 
 .form-element {
@@ -70,7 +146,7 @@ input[type='number'] {
   padding-inline: 10px;
   font-size: 1.05em;
   border-radius: 5px;
-  border: 1px solid black;
+  border: 1px solid midnightblue;
 }
 
 .lists-container {
@@ -78,37 +154,71 @@ input[type='number'] {
   gap: 20px;
 }
 
-.unfinished-list-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  width: 30vw;
-  min-height: 50vh;
-  padding-block: 15px;
-  border: 1px solid black;
-}
-
+.unfinished-list-container,
 .finished-list-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
 
-  width: 30vw;
-  min-height: 50vh;
-  padding-block: 15px;
-  border: 1px solid black;
+  width: 40vw;
+  min-height: 30vh;
+  padding: 30px 20px;
+  background-color: rgb(212, 216, 223);
+  border-radius: 25px;
+  box-shadow: 10px 17px 15px -3px rgba(0, 0, 0, 0.1);
+  border: 1px solid midnightblue;
 }
 
 .list-item-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   width: 90%;
   height: fit-content;
 }
 
 .list-item {
+  display: flex;
+  justify-content: space-between;
+
   height: fit-content;
-  margin-block: 10px;
-  border: 1px solid black;
+  padding: 10px;
+  background-color: ivory;
+  border-radius: 30px;
+}
+
+#edit-btn {
+  font-size: small;
+  text-align: center;
+  text-decoration: none;
+}
+
+.unfinished-list-container .list-item {
+  border: 1px solid darkgoldenrod;
+}
+
+.finished-list-container .list-item {
+  border: 1px solid darkgreen;
+}
+
+.list-item > .text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+
+  width: 65%;
+  padding-inline: 15px;
+}
+
+.list-item > .btn-container {
+  display: flex;
+  gap: 5px;
+  width: 35%;
+  flex-direction: column;
+
+  padding: 15px;
 }
 
 #change-status-btn {

@@ -1,19 +1,21 @@
 window.addEventListener('DOMContentLoaded', () => {
   if (typeof Storage === 'undefined') {
-    alert('Maaf, aplikasi tidak dapat berfungsi karena browser yang anda gunakan tidak mendukung Web Storage.');
+    alert(
+      'Maaf, aplikasi tidak dapat berfungsi karena browser yang anda gunakan tidak mendukung Web Storage.'
+    );
     return;
   }
 
   const localBooksDataKey = 'BooksData';
   const bookForm = document.getElementById('book-form');
   const searchForm = document.getElementById('search-form');
+  const cancelBtn = document.getElementById('cancel-btn');
   let formTitleState = document.getElementById('form-title-state');
   const existingDataId = document.getElementById('existing-data-id');
   const inputTitle = document.getElementById('title');
   const inputWriter = document.getElementById('writer');
   const inputYear = document.getElementById('year');
-  const inputIsFinishedReadingRadioGroup =
-    document.getElementsByName('reading-status');
+  const readingStatusRadioGroup = document.getElementsByName('reading-status');
   const finishedReadingList = document.querySelector(
     '.finished-list-container > .list-item-container'
   );
@@ -22,12 +24,10 @@ window.addEventListener('DOMContentLoaded', () => {
   );
 
   function clearForm() {
-    document.getElementById('title').value = '';
-    document.getElementById('writer').value = '';
-    document.getElementById('year').value = '';
-    document
-      .getElementsByName('reading-status')
-      .forEach((option) => (option.checked = false));
+    inputTitle.value = '';
+    inputWriter.value = '';
+    inputYear.value = '';
+    readingStatusRadioGroup.forEach((option) => (option.checked = false));
   }
 
   function clearCurrentBookList() {
@@ -47,9 +47,9 @@ window.addEventListener('DOMContentLoaded', () => {
     inputYear.value = data.year;
 
     if (data.isComplete) {
-      inputIsFinishedReadingRadioGroup[1].checked = true;
+      readingStatusRadioGroup[1].checked = true;
     } else {
-      inputIsFinishedReadingRadioGroup[0].checked = true;
+      readingStatusRadioGroup[0].checked = true;
     }
   }
 
@@ -60,7 +60,7 @@ window.addEventListener('DOMContentLoaded', () => {
   function getFormData() {
     let isFinishedReading = null;
 
-    for (const option of inputIsFinishedReadingRadioGroup) {
+    for (const option of readingStatusRadioGroup) {
       if (option.checked) {
         isFinishedReading = true;
       } else {
@@ -166,6 +166,12 @@ window.addEventListener('DOMContentLoaded', () => {
     listItem.setAttribute('id', bookData.id);
     listItem.setAttribute('class', 'list-item');
 
+    const textContainer = document.createElement('div');
+    textContainer.setAttribute('class', 'text-container');
+
+    const btnContainer = document.createElement('div');
+    btnContainer.setAttribute('class', 'btn-container');
+
     const title = document.createElement('h3');
     title.innerText = bookData.title;
 
@@ -184,8 +190,9 @@ window.addEventListener('DOMContentLoaded', () => {
       ? 'Sedang Dibaca'
       : 'Selesaikan';
 
-    const editBtn = document.createElement('button');
+    const editBtn = document.createElement('a');
     editBtn.setAttribute('id', 'edit-btn');
+    editBtn.setAttribute('href', '#app-title');
     editBtn.innerText = 'Edit Data';
 
     const deleteBtn = document.createElement('button');
@@ -201,18 +208,17 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     deleteBtn.addEventListener('click', () => {
-      deleteBookData(bookData.id);
+      const deletionIsAccepted = confirm(
+        'Apakah anda yakin akan menghapus data ini?'
+      );
+      if (deletionIsAccepted) deleteBookData(bookData.id);
+      return;
     });
 
-    listItem.append(
-      title,
-      writer,
-      year,
-      isFinished,
-      changeReadingStatusBtn,
-      editBtn,
-      deleteBtn
-    );
+    textContainer.append(title, writer, year);
+    btnContainer.append(changeReadingStatusBtn, editBtn, deleteBtn);
+
+    listItem.append(textContainer, btnContainer);
 
     return listItem;
   }
@@ -247,5 +253,11 @@ window.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
 
     searchBookData();
+  });
+
+  cancelBtn.addEventListener('click', () => {
+    clearForm();
+    existingDataId.value = '';
+    formTitleState.innerText = 'Masukkan';
   });
 });
